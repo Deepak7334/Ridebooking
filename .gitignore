@@ -1,0 +1,39 @@
+# Node dependencies
+/backend/node_modules/
+/frontend/node_modules/
+
+# Environment files
+*.env
+backend/.env
+frontend/.env
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# Build / static output
+/frontend/build/
+/build/
+
+# Local env files
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Uploads and runtime artifacts
+uploads/
+backend/uploads/
+frontend/uploads/
+
+# Editor directories
+.vscode/
+.idea/
+
+# Misc
+*.log

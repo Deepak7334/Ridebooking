@@ -1,0 +1,92 @@
+/* Responsive shell helpers for layout components (MainLayout/MobileLayout). */
+
+/* Hide desktop sidebar on small screens */
+@media (max-width: 767px) {
+  .sidebar {
+    display: none;
+  }
+}
+
+.main-layout {
+
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: row;
+}
+
+.sidebar {
+  width: 260px;
+  flex: 0 0 260px;
+  padding: 16px;
+  border-right: 1px solid rgba(255,255,255,0.08);
+}
+
+.content {
+  flex: 1;
+  min-width: 0;
+  padding: 16px;
+}
+
+/* Mobile layout */
+.mobile-layout {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.mobile-content {
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+  padding: 16px;
+  padding-bottom: 90px; /* keep content visible above bottom nav */
+}
+
+.bottom-navigation {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 78px;
+  background: rgba(10, 12, 20, 0.92);
+  backdrop-filter: blur(18px);
+  border-top: 1px solid rgba(255,255,255,0.08);
+  z-index: 50;
+}
+
+.bottom-navigation ul {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  height: 100%;
+  margin: 0;
+  padding: 10px 12px;
+  list-style: none;
+  gap: 10px;
+}
+
+.bottom-navigation li a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  text-decoration: none;
+  color: rgba(255,255,255,0.75);
+  font-weight: 700;
+  font-size: 12px;
+  border-radius: 18px;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.03);
+}
+
+.bottom-navigation li a:active {
+  transform: scale(0.99);
+}
+
+@media (min-width: 768px) {
+  .bottom-navigation {
+    display: none;
+  }
+}
+

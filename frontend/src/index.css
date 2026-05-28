@@ -1,0 +1,229 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Global Reset & Base ── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: #070b14;
+  color: #ffffff;
+  overscroll-behavior: none;
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
+
+/* ── Hide scrollbar utility ── */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* ── Global animations ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.92); }
+  to   { opacity: 1; transform: scale(1); }
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+@keyframes ripple {
+  0%   { transform: scale(1); opacity: 0.6; }
+  100% { transform: scale(2.5); opacity: 0; }
+}
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position:  200% center; }
+}
+@keyframes glowPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(245, 166, 35, 0.4); }
+  50%       { box-shadow: 0 0 0 10px rgba(245, 166, 35, 0); }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-8px); }
+}
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.3; }
+}
+@keyframes panelSlideUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Animation utility classes ── */
+.animate-fade-up    { animation: fadeUp    0.35s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.animate-fade-in    { animation: fadeIn    0.3s ease both; }
+.animate-scale-in   { animation: scaleIn   0.3s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.animate-slide-down { animation: slideDown 0.3s ease both; }
+.animate-panel-up   { animation: panelSlideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.animate-float      { animation: float     3s ease-in-out infinite; }
+.animate-blink      { animation: blink     1.5s ease infinite; }
+.animate-spin       { animation: spin      0.8s linear infinite; }
+.animate-ripple     { animation: ripple    2s ease-out infinite; }
+
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    rgba(255,255,255,0.04) 25%,
+    rgba(255,255,255,0.09) 50%,
+    rgba(255,255,255,0.04) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+/* ── Design tokens ── */
+.bg-surface        { background: rgba(255,255,255,0.04); }
+.bg-surface-hover  { background: rgba(255,255,255,0.07); }
+.border-subtle     { border: 1px solid rgba(255,255,255,0.08); }
+
+/* ── Primary gradient button ── */
+.btn-primary {
+  background: linear-gradient(135deg, #F5A623 0%, #FF6B35 100%);
+  box-shadow: 0 6px 24px rgba(245,166,35,0.35), inset 0 1px 0 rgba(255,255,255,0.15);
+  color: #111;
+  font-weight: 800;
+  border: none;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+}
+.btn-primary:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 32px rgba(245,166,35,0.5);
+}
+.btn-primary:active:not(:disabled) {
+  transform: translateY(0);
+}
+.btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ── Glass card ── */
+.glass-card {
+  background: rgba(10, 13, 22, 0.85);
+  backdrop-filter: blur(24px) saturate(160%);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+/* ── Stagger delays ── */
+.delay-50  { animation-delay: 50ms; }
+.delay-100 { animation-delay: 100ms; }
+.delay-150 { animation-delay: 150ms; }
+.delay-200 { animation-delay: 200ms; }
+.delay-300 { animation-delay: 300ms; }
+.delay-400 { animation-delay: 400ms; }
+.delay-500 { animation-delay: 500ms; }
+
+/* ── Input base style ── */
+.input-dark {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: #fff;
+  border-radius: 14px;
+  padding: 12px 16px;
+  font-size: 15px;
+  outline: none;
+  width: 100%;
+  transition: border-color 0.2s, background 0.2s;
+}
+.input-dark::placeholder { color: rgba(255,255,255,0.3); }
+.input-dark:focus {
+  border-color: rgba(245,166,35,0.5);
+  background: rgba(255,255,255,0.08);
+}
+
+/* ── Status badge ── */
+.badge-green  { background:rgba(74,222,128,.12);  color:#4ade80; border:1px solid rgba(74,222,128,.25); }
+.badge-red    { background:rgba(248,113,113,.12); color:#f87171; border:1px solid rgba(248,113,113,.25); }
+.badge-yellow { background:rgba(251,191,36,.12);  color:#fbbf24; border:1px solid rgba(251,191,36,.25); }
+.badge-blue   { background:rgba(96,165,250,.12);  color:#60a5fa; border:1px solid rgba(96,165,250,.25); }
+.badge-purple { background:rgba(167,139,250,.12); color:#a78bfa; border:1px solid rgba(167,139,250,.25); }
+
+/* ── Leaflet dark override ── */
+.leaflet-container { background: #0a0d16 !important; }
+
+/* Responsive layout shell used by MainLayout/MobileLayout */
+@import "./styles/responsive-shell.css";
+
+/* ── Safe area / notch support ── */
+body {
+  padding-top: env(safe-area-inset-top);
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+}
+
+/* ── Touch target minimum size ── */
+button, a, [role="button"] {
+  min-height: 44px;
+  min-width: 44px;
+}
+/* Exception: small inline buttons override individually */
+.btn-sm-override {
+  min-height: unset;
+  min-width: unset;
+}
+
+/* ── Prevent horizontal scroll ── */
+html, body, #root {
+  overflow-x: hidden;
+  max-width: 100%;
+}
+
+/* ── Responsive font scaling ── */
+@media (max-width: 360px) {
+  html { font-size: 14px; }
+}
+
+/* ── Make map pages fill full height without overflow ── */
+.ride-page-shell {
+  width: 100%;
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+}
+
+/* ── Admin dashboard responsive table ── */
+@media (max-width: 767px) {
+  .admin-table-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* ── Smooth input focus on mobile ── */
+@media (max-width: 767px) {
+  input, select, textarea {
+    font-size: 16px; /* Prevents iOS zoom-in on focus */
+  }
+}
+
