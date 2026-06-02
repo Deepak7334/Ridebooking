@@ -46,18 +46,7 @@ const LookingForDriver = () => {
     setDriver(driverInfo);
     setRideBooked(true);
 
-    // Show success popup for 2s then redirect to live tracking
-    setTimeout(() => {
-      navigate('/ride/tracking', {
-        replace: true,
-        state: {
-          ...rideData,
-          rideId: data.ride?._id || rideData.rideId,
-          status: 'accepted',
-          driver: driverInfo,
-        },
-      });
-    }, 2000);
+    // State will render the success popup with 'Next' and 'Cancel' buttons
   }, [rideData, navigate]);
 
   /* ── Socket: join ride room + listen for rideAccepted ── */
@@ -162,12 +151,44 @@ const LookingForDriver = () => {
               </div>
             )}
 
-            <div className="flex items-center justify-center gap-2"
-              style={{ color: 'rgba(255,255,255,.3)' }}>
-              <svg style={{ animation: 'spin .8s linear infinite', flexShrink: 0 }} width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                <path d="M21 12a9 9 0 1 1-6.219-8.56"/>
-              </svg>
-              <p className="text-xs">Taking you to live tracking…</p>
+            {/* OTP Display in the Popup */}
+            {rideData.otp && (
+              <div className="rounded-2xl p-3 mb-5 text-center"
+                style={{ background: 'rgba(99,102,241,.1)', border: '1px solid rgba(99,102,241,.28)' }}>
+                <p className="text-xs font-bold uppercase tracking-widest mb-1" style={{ color: 'rgba(165,180,252,.7)' }}>
+                  Your Ride OTP
+                </p>
+                <p className="text-white font-black text-3xl tracking-[.25em]"
+                  style={{ textShadow: '0 0 24px rgba(99,102,241,.6)' }}>
+                  {rideData.otp}
+                </p>
+              </div>
+            )}
+
+            <div className="flex items-center justify-center gap-3 mt-2">
+              <button
+                onClick={handleCancel}
+                className="flex-1 py-3.5 rounded-2xl font-bold text-sm transition-all active:scale-95"
+                style={{ background: 'rgba(239,68,68,.15)', border: '1px solid rgba(239,68,68,.3)', color: '#f87171' }}
+              >
+                Cancel
+              </button>
+              <button
+                onClick={() => {
+                  navigate('/ride/tracking', {
+                    replace: true,
+                    state: {
+                      ...rideData,
+                      status: 'accepted',
+                      driver,
+                    },
+                  });
+                }}
+                className="flex-1 py-3.5 rounded-2xl font-bold text-sm transition-all active:scale-95 text-[#070b14]"
+                style={{ background: 'linear-gradient(135deg, #4ade80, #16a34a)', boxShadow: '0 4px 14px rgba(74,222,128,.4)' }}
+              >
+                Next →
+              </button>
             </div>
           </div>
         </div>
@@ -229,7 +250,7 @@ const LookingForDriver = () => {
               {driver ? '🎉 Driver Found!' : 'Finding Driver'}
             </p>
             <p style={{ color: 'rgba(255,255,255,.3)' }} className="text-xs font-semibold flex items-center gap-1.5">
-              Rapido
+              JYDO
               {/* Socket status dot */}
               <span className="inline-block w-1.5 h-1.5 rounded-full"
                 style={{ background: isConnected ? '#4ade80' : '#f87171', boxShadow: isConnected ? '0 0 6px #4ade80' : 'none' }} />
@@ -458,3 +479,4 @@ const LookingForDriver = () => {
 };
 
 export default LookingForDriver;
+

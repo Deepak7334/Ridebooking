@@ -41,7 +41,7 @@ export default function Sidebar() {
       }}
     >
       <h2 style={{ marginBottom: "30px", color: "#facc15" }}>
-        RAPIDO ADMIN
+        JYDO ADMIN
       </h2>
 
       {menus.map((menu) => (

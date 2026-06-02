@@ -58,7 +58,7 @@ export default function DriverProfile() {
             
             <div className="flex-1 mt-2 md:mt-0">
               <h1 className="text-3xl font-extrabold">{driver.name}</h1>
-              <p className="text-[#F5A623] font-bold text-sm tracking-widest uppercase mt-1">Rapido Captain</p>
+              <p className="text-[#F5A623] font-bold text-sm tracking-widest uppercase mt-1">JYDO Captain</p>
               
               <div className="flex items-center justify-center md:justify-start gap-4 mt-4">
                 <div className="px-3 py-1.5 bg-white/5 rounded-lg border border-white/10 flex items-center gap-2 text-sm font-bold">

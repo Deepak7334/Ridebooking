@@ -161,7 +161,7 @@ export default function PublicTracking() {
             🏍️
           </div>
           <div>
-            <p className="text-white font-extrabold text-base leading-none tracking-tight">rapido</p>
+            <p className="text-white font-extrabold text-base leading-none tracking-tight">jydo</p>
             <p className="text-green-400 text-[10px] font-bold tracking-widest uppercase mt-1 flex items-center gap-1">
               <span className="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse" /> Live Tracking
             </p>
@@ -214,3 +214,4 @@ export default function PublicTracking() {
     </div>
   );
 }
+

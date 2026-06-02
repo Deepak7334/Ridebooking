@@ -17,7 +17,7 @@ export default function Settings() {
 
             <input
               type="text"
-              defaultValue="Rapido Clone"
+              defaultValue="JYDO Clone"
               style={{
                 width: "100%",
                 padding: "12px",

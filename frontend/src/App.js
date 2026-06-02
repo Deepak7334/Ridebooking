@@ -29,6 +29,7 @@ import DriverNotifications from './pages/Driver/DriverNotifications';
 import DriverRatings from './pages/Driver/DriverRatings';
 import DriverBottomNav from './pages/Driver/DriverBottomNav';
 import DriverSupport from './pages/Driver/DriverSupport';
+import DriverTracking from './pages/Driver/DriverTracking';
 
 
 // Admin
@@ -67,6 +68,8 @@ const App = () => (
 
               {/* Driver */}
               <Route path="/driver" element={<RequireAuth role="driver"><DriverDashboard /></RequireAuth>} />
+              <Route path="/driver/dashboard" element={<RequireAuth role="driver"><DriverDashboard /></RequireAuth>} />
+              <Route path="/driver/tracking" element={<RequireAuth role="driver"><DriverTracking /></RequireAuth>} />
               <Route path="/driver/documents" element={<RequireAuth role="driver"><DriverDocuments /></RequireAuth>} />
               <Route path="/driver/profile" element={<RequireAuth role="driver"><DriverProfile /></RequireAuth>} />
               <Route path="/driver/earnings" element={<RequireAuth role="driver"><DriverEarnings /></RequireAuth>} />

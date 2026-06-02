@@ -47,7 +47,7 @@ function MapController({ center, zoom }) {
 
 /* ─── Vehicles ─── */
 const VEHICLES = [
-  { id: 'bike', label: 'Rapido Bike', icon: '🏍️', desc: '1 seat · Fastest',     eta: '2 min', badge: 'Popular' },
+  { id: 'bike', label: 'JYDO Bike', icon: '🏍️', desc: '1 seat · Fastest',     eta: '2 min', badge: 'Popular' },
   { id: 'auto', label: 'Auto',        icon: '🛺',  desc: '3 seats · Affordable', eta: '4 min', badge: '' },
   { id: 'car',  label: 'Cab',         icon: '🚗',  desc: '4 seats · Comfortable',eta: '6 min', badge: 'AC' },
 ];
@@ -632,7 +632,7 @@ function HomeContent() {
             🏍️
           </div>
           <div>
-            <p className="text-white font-extrabold text-lg leading-none tracking-tight">rapido</p>
+            <p className="text-white font-extrabold text-lg leading-none tracking-tight">jydo</p>
             <p className="text-white/40 text-[10px] mt-0.5">Hey {user?.name?.split(' ')[0] || 'Rider'} 👋</p>
           </div>
         </div>
@@ -667,7 +667,7 @@ function HomeContent() {
                 🏍️
               </div>
               <div>
-                <p className="text-white font-extrabold text-base leading-tight">rapido</p>
+                <p className="text-white font-extrabold text-base leading-tight">jydo</p>
                 <p className="text-white/40 text-[11px] mt-0.5">Hey {user?.name?.split(' ')[0] || 'Rider'} 👋</p>
               </div>
             </div>

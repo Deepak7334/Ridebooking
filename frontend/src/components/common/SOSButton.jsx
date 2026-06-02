@@ -107,7 +107,7 @@ const SOSButton = ({ rideId, userLocation }) => {
                 const locationUrl = userLocation 
                   ? `https://maps.google.com/?q=${userLocation.lat},${userLocation.lng}`
                   : '';
-                const text = `EMERGENCY! My Rapido ride location: ${locationUrl}`;
+                const text = `EMERGENCY! My JYDO ride location: ${locationUrl}`;
                 navigator.clipboard.writeText(text);
                 alert('Location copied to clipboard!');
               }}
@@ -123,3 +123,4 @@ const SOSButton = ({ rideId, userLocation }) => {
 };
 
 export default SOSButton;
+

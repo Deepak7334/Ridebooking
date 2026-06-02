@@ -161,39 +161,10 @@ export default function DriverDashboard() {
     setLoading(true);
     try {
       const r = await axiosInstance.patch(`/rides/${id}/accept`);
-      setCurrentRide(r.data.ride);
       setAvailableRides(p => p.filter(ride => ride._id !== id));
-      // Join the ride room so driver gets rideStarted/Completed events
-      if (socket) {
-        socket.emit('join-ride', id);
-        console.log('🚪 Driver joined ride room:', id);
-      }
-      // Go offline from available-drivers room — driver is busy
-      driverGoOffline();
+      driverGoOffline(); // driver is busy
+      navigate('/driver/tracking', { state: { ride: r.data.ride } });
     } catch (e) { alert(e.response?.data?.message || 'Failed to accept. Ride may have been taken.'); }
-    finally { setLoading(false); }
-  };
-  const startRide = async () => {
-    if (otpInput.length < 4) return setOtpError('Enter 4-digit OTP');
-    setLoading(true); setOtpError('');
-    try {
-      const r = await axiosInstance.patch(`/rides/${currentRide._id}/start`, { otp: otpInput });
-      setCurrentRide(r.data.ride); setOtpInput('');
-    } catch (e) { setOtpError(e.response?.data?.message || 'Invalid OTP'); }
-    finally { setLoading(false); }
-  };
-  const completeRide = async () => {
-    setLoading(true);
-    try {
-      const rideId = currentRide._id;
-      await axiosInstance.patch(`/rides/${rideId}/complete`);
-      // Leave ride room
-      if (socket) socket.emit('leave-ride', rideId);
-      setCurrentRide(null);
-      fetchEarnings();
-      // Rejoin available-drivers room if still online
-      if (isOnline) driverGoOnline();
-    } catch (e) { alert(e.response?.data?.message || 'Failed'); }
     finally { setLoading(false); }
   };
   const handleLogout = () => { localStorage.clear(); navigate('/login'); };
@@ -509,7 +480,7 @@ export default function DriverDashboard() {
       <header id="dd-header">
         {/* Left: Logo + Driver name */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-          {/* Rapido Logo */}
+          {/* JYDO Logo */}
           <div style={{
             width: 42, height: 42, borderRadius: 13, flexShrink: 0,
             display: 'flex', alignItems: 'center', justifyContent: 'center',
@@ -523,7 +494,7 @@ export default function DriverDashboard() {
               <span style={{
                 fontSize: 17, fontWeight: 900, letterSpacing: '-.01em', color: '#fff',
                 lineHeight: 1
-              }}>RAPIDO</span>
+              }}>JYDO</span>
               <span style={{
                 fontSize: 9, fontWeight: 700, color: '#F5A623',
                 textTransform: 'uppercase', letterSpacing: '.12em',
@@ -715,162 +686,8 @@ export default function DriverDashboard() {
             </div>
           </div>
 
-          {/* ════ ACTIVE RIDE ════ */}
-          {currentRide && (
-            <div className="anim-up" style={{ animationDelay: '80ms', marginBottom: 20 }}>
-              <span className="sec-label">Active Ride</span>
-              <div style={{
-                borderRadius: 22, overflow: 'hidden',
-                background: 'rgba(99,102,241,.06)',
-                border: '1px solid rgba(99,102,241,.2)',
-                boxShadow: '0 8px 40px rgba(99,102,241,.1)'
-              }}>
-                {/* Active ride header */}
-                <div style={{
-                  display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-                  padding: '14px 18px',
-                  background: 'rgba(99,102,241,.08)',
-                  borderBottom: '1px solid rgba(99,102,241,.12)'
-                }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 9 }}>
-                    <div style={{
-                      width: 34, height: 34, borderRadius: 11, background: 'rgba(99,102,241,.15)',
-                      display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 16
-                    }}>⚡</div>
-                    <div>
-                      <p style={{ color: '#fff', fontWeight: 700, fontSize: 14, lineHeight: 1 }}>Active Ride</p>
-                      <p style={{ color: 'rgba(129,140,248,.6)', fontSize: 11, marginTop: 2 }}>
-                        {currentRide.passengerId?.name || 'Passenger'}
-                      </p>
-                    </div>
-                  </div>
-                  {/* Status badge */}
-                  <div className="status-badge" style={{
-                    background: currentRide.status === 'accepted'
-                      ? 'rgba(245,166,35,.12)' : 'rgba(74,222,128,.12)',
-                    border: `1px solid ${currentRide.status === 'accepted'
-                      ? 'rgba(245,166,35,.25)' : 'rgba(74,222,128,.25)'}`,
-                    color: currentRide.status === 'accepted' ? '#F5A623' : '#4ade80',
-                    textTransform: 'uppercase', letterSpacing: '.08em', fontSize: 10
-                  }}>
-                    <div style={{
-                      width: 5, height: 5, borderRadius: '50%',
-                      background: currentRide.status === 'accepted' ? '#F5A623' : '#4ade80'
-                    }} />
-                    {currentRide.status}
-                  </div>
-                </div>
-
-                <div style={{ padding: '16px 18px', display: 'flex', flexDirection: 'column', gap: 14 }}>
-                  <RoutePill
-                    pickup={currentRide.pickupLocation?.address}
-                    drop={currentRide.dropoffLocation?.address}
-                  />
-
-                  {/* Fare */}
-                  <div style={{
-                    display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-                    background: 'rgba(245,166,35,.07)', border: '1px solid rgba(245,166,35,.18)',
-                    borderRadius: 14, padding: '12px 16px'
-                  }}>
-                    <div>
-                      <p style={{ color: 'rgba(255,255,255,.28)', fontSize: 9, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '.1em', marginBottom: 3 }}>Fare</p>
-                      <p style={{ color: '#F5A623', fontSize: 'clamp(1.6rem,4vw,2rem)', fontWeight: 800, lineHeight: 1, letterSpacing: '-.01em' }}>₹{currentRide.fare}</p>
-                    </div>
-                    <div style={{ fontSize: 28, opacity: .6 }}>💳</div>
-                  </div>
-
-                  {/* OTP section */}
-                  {currentRide.status === 'accepted' && (
-                    <div className="anim-fade">
-                      <p style={{
-                        color: 'rgba(129,140,248,.5)', fontSize: 10, fontWeight: 700,
-                        textTransform: 'uppercase', letterSpacing: '.14em',
-                        textAlign: 'center', marginBottom: 12
-                      }}>Enter Customer OTP to Start Ride</p>
-
-                      {/* 4 individual OTP boxes */}
-                      <div className="otp-wrap" style={{ marginBottom: otpError ? 8 : 14 }}>
-                        {[0, 1, 2, 3].map(i => (
-                          <input
-                            key={i}
-                            id={`otp-${i}`}
-                            className={`otp-box ${otpError ? 'otp-err' : ''} ${otpInput[i] ? 'otp-filled' : ''}`}
-                            type="text"
-                            inputMode="numeric"
-                            maxLength={1}
-                            value={otpInput[i] || ''}
-                            onChange={e => {
-                              const val = e.target.value.replace(/\D/g, '');
-                              const arr = otpInput.split('');
-                              arr[i] = val;
-                              const next = arr.join('').slice(0, 4);
-                              setOtpInput(next);
-                              setOtpError('');
-                              if (val && i < 3) document.getElementById(`otp-${i + 1}`)?.focus();
-                            }}
-                            onKeyDown={e => {
-                              if (e.key === 'Backspace' && !otpInput[i] && i > 0) {
-                                document.getElementById(`otp-${i - 1}`)?.focus();
-                              }
-                            }}
-                          />
-                        ))}
-                      </div>
-
-                      {otpError && (
-                        <p className="anim-fade" style={{
-                          color: '#f87171', fontSize: 12, fontWeight: 500,
-                          textAlign: 'center', marginBottom: 10
-                        }}>{otpError}</p>
-                      )}
-
-                      <button
-                        className="btn-amber"
-                        onClick={startRide}
-                        disabled={loading || otpInput.length < 4}
-                        style={{ width: '100%', padding: '14px', fontSize: 14, borderRadius: 14 }}
-                      >
-                        {loading ? (
-                          <svg style={{ animation: 'spin .8s linear infinite' }} width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
-                        ) : '🚀'} {loading ? 'Verifying OTP…' : 'Start Ride'}
-                      </button>
-                    </div>
-                  )}
-
-                  {/* Complete ride */}
-                  {currentRide.status === 'started' && (
-                    <div className="anim-fade">
-                      <div style={{
-                        display: 'flex', alignItems: 'center', gap: 8, padding: '10px 14px',
-                        borderRadius: 12, background: 'rgba(74,222,128,.07)',
-                        border: '1px solid rgba(74,222,128,.15)', marginBottom: 12
-                      }}>
-                        <div style={{ width: 8, height: 8, borderRadius: '50%', background: '#4ade80', animation: 'pulseGlow 2s infinite' }} />
-                        <p style={{ color: 'rgba(74,222,128,.8)', fontSize: 12, fontWeight: 600 }}>Ride in progress — drive safe!</p>
-                      </div>
-                      <button
-                        className="btn-green"
-                        onClick={completeRide}
-                        disabled={loading}
-                        style={{ width: '100%', padding: '14px', fontSize: 14, borderRadius: 14 }}
-                      >
-                        {loading ? (
-                          <svg style={{ animation: 'spin .8s linear infinite' }} width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
-                        ) : (
-                          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-                        )}
-                        {loading ? 'Completing Ride…' : 'Complete Ride'}
-                      </button>
-                    </div>
-                  )}
-                </div>
-              </div>
-            </div>
-          )}
-
           {/* ════ ONLINE STATE ════ */}
-          {isOnline && !currentRide && (
+          {isOnline && (
             <div className="anim-up" style={{ animationDelay: '100ms', marginBottom: 20 }}>
 
               {/* Radar waiting animation */}

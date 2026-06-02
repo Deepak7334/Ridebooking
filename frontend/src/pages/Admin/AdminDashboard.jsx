@@ -89,7 +89,7 @@ export default function AdminDashboard() {
           <div className="flex items-center gap-3 mb-8">
             <div style={{ background: 'linear-gradient(135deg,#F5A623,#FF6B35)' }} className="w-9 h-9 rounded-xl flex items-center justify-center text-lg shadow-lg">🛡️</div>
             <div>
-              <p className="font-extrabold text-lg leading-tight tracking-tight">RAPIDO</p>
+              <p className="font-extrabold text-lg leading-tight tracking-tight">JYDO</p>
               <p className="text-[10px] font-bold text-amber-500 uppercase tracking-widest">Admin Portal</p>
             </div>
           </div>
@@ -128,7 +128,7 @@ export default function AdminDashboard() {
       <div className="md:hidden fixed top-0 inset-x-0 h-16 flex items-center justify-between px-4 z-50" style={{ background: 'rgba(7,11,20,.9)', backdropFilter: 'blur(12px)', borderBottom: '1px solid rgba(255,255,255,.06)' }}>
         <div className="flex items-center gap-2">
           <div style={{ background: 'linear-gradient(135deg,#F5A623,#FF6B35)' }} className="w-8 h-8 rounded-lg flex items-center justify-center text-sm shadow-lg">🛡️</div>
-          <p className="font-extrabold text-base leading-tight tracking-tight">RAPIDO</p>
+          <p className="font-extrabold text-base leading-tight tracking-tight">JYDO</p>
         </div>
         <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="p-2 bg-white/5 rounded-lg border border-white/10 text-white/70">
           {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
@@ -174,3 +174,4 @@ export default function AdminDashboard() {
     </div>
   );
 }
+

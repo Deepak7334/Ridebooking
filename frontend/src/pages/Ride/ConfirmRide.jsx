@@ -4,7 +4,7 @@ import { ArrowLeft, Zap, Wallet, DollarSign } from 'lucide-react';
 import axiosInstance from '../../api/axios';
 
 const VEHICLE_META = {
-  bike: { label: 'Rapido Bike', icon: '🏍️', desc: '1 seat · Fastest & Cheapest', eta: '2 min', badge: 'POPULAR' },
+  bike: { label: 'JYDO Bike', icon: '🏍️', desc: '1 seat · Fastest & Cheapest', eta: '2 min', badge: 'POPULAR' },
   auto: { label: 'Auto',        icon: '🛺', desc: '3 seats · Affordable',        eta: '4 min', badge: '' },
   car:  { label: 'Cab',         icon: '🚗', desc: '4 seats · Comfortable',       eta: '6 min', badge: '' },
 };
@@ -160,3 +160,4 @@ const ConfirmRide = () => {
   );
 };
 export default ConfirmRide;
+

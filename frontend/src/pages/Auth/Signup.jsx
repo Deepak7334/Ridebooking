@@ -99,7 +99,7 @@ const Signup = () => {
             style={{ background:'linear-gradient(135deg,#F5A623,#FF6B35)', boxShadow:'0 8px 40px rgba(245,166,35,.45)', width:72, height:72 }}>
             🏍️
           </div>
-          <h1 className="text-4xl sm:text-5xl font-black text-white tracking-tight">rapido</h1>
+          <h1 className="text-4xl sm:text-5xl font-black text-white tracking-tight">jydo</h1>
           <p className="text-white/35 mt-1.5 text-sm font-light">Join millions of happy riders</p>
         </div>
 
@@ -266,3 +266,4 @@ const Signup = () => {
 };
 
 export default Signup;
+

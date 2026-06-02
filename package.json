@@ -1,0 +1,11 @@
+{
+  "name": "ridebooking-root",
+  "version": "1.0.0",
+  "description": "Root package.json to proxy render deployment to the backend folder",
+  "scripts": {
+    "install": "npm install --prefix backend",
+    "build": "npm install --prefix backend",
+    "start": "npm start --prefix backend",
+    "dev": "npm run dev --prefix backend"
+  }
+}

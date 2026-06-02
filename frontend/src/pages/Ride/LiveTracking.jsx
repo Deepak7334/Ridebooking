@@ -210,7 +210,7 @@ const LiveTracking = () => {
             style={{ background: 'linear-gradient(135deg,#F5A623,#FF6B35)', boxShadow: '0 4px 14px rgba(245,166,35,.45)' }}>
             🏍️
           </div>
-          <p className="text-white font-extrabold text-base leading-none tracking-tight">rapido</p>
+          <p className="text-white font-extrabold text-base leading-none tracking-tight">jydo</p>
         </div>
 
         {/* Status Badge on Map */}
@@ -315,3 +315,4 @@ const LiveTracking = () => {
 };
 
 export default LiveTracking;
+

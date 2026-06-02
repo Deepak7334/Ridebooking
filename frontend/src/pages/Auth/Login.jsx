@@ -110,7 +110,7 @@ const Login = () => {
             style={{ background:'linear-gradient(135deg,#F5A623,#FF6B35)', boxShadow:'0 8px 40px rgba(245,166,35,.45),0 0 0 1px rgba(255,255,255,.1) inset' }}>
             🏍️
           </div>
-          <h1 className="text-5xl sm:text-6xl font-black text-white tracking-tight">rapido</h1>
+          <h1 className="text-5xl sm:text-6xl font-black text-white tracking-tight">JYDO</h1>
           <p className="text-white/40 mt-1.5 text-sm sm:text-base font-light">Fast · Safe · Affordable</p>
         </div>
 
