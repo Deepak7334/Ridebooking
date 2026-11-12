@@ -29,3 +29,18 @@ export { default as RideDetails } from './History/RideDetails';
 
 // Profile Pages
 export { default as Profile } from './Profile/index';
+
+// Driver Pages
+export {
+  DriverDashboard,
+  DriverDocuments,
+  DriverEarnings,
+  DriverNotifications,
+  DriverProfile,
+  DriverRatings,
+  DriverRegistration,
+  DriverRideHistory,
+  DriverSupport,
+  DriverTracking,
+  DriverWallet,
+} from './Driver';
