@@ -7,5 +7,9 @@
     "build": "npm install --prefix backend",
     "start": "npm start --prefix backend",
     "dev": "npm run dev --prefix backend"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.65.0",
+    "@types/node": "^26.6.6"
   }
 }
